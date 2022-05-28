@@ -1,0 +1,22 @@
+- Race Condition, un problema de des-sincronización de hilos que comparten un recurso.
+	- diferentes hilos tratan de actualizar una variable
+	- intentan insertar nuevos valores
+	- quieren acceder a un mismo archivo
+- Una solución de sincronización es la definición de una sección crítica que permita excluir a los demás más hilos de la acción de un hilo determinado.
+
+- Para la definición de esa sección crítica se utiliza los mutex, que tienen 2 métodos para definir la sección crítica
+	- lock() que define el inicio de la sección crítica
+	- unlock() que define el fin de la sección crítica
+
+- Una de las ventajas del mutex, es que puede genera una sección crítica con más de una instrucción de programa
+- Un problema que tiene es que usarlo de forma directa podría motivar por un error no desbloquear la sección crítica.
+
+- Para corregir el problema del desbloque (unlock)
+	- lock_guard	--> es una clase que ejecuta bloquea inmediatamente
+	- unique_lock   --> permite el bloque y desbloque diferido
+
+- Otro mecanismo para generar la sección crítica es el atomic, funciona en instrucciones aritméticas simples
+
+- Un mecanismo para realizar la comunicación de sincronización entre hilos es la clase conditional_variable que a través de 2 métodos realiza la comunicación
+	1. Enviar un mensaje ---> cv.notify_one();
+	2. Recepcionar el mensaje ---> cv.wait(unique_lock, callable que retorne true/false)
